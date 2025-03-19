@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "ArrayList.h"
 #include "Point.h"
+#include "ArrayList.h"
 
 int main(void)
 {
@@ -28,6 +28,10 @@ int main(void)
 	SetPointPos(ppos, 3, 2);
 	LInsert(&list, ppos);
 
+	ppos = (Point*)malloc(sizeof(Point));
+	SetPointPos(ppos, 2, 0);
+	LInsert(&list, ppos);
+
 	/*** 저장된 데이터의 출력 ***/
 	printf("현재 데이터의 수: %d \n", LCount(&list));
 
@@ -46,7 +50,7 @@ int main(void)
 
 	if(LFirst(&list, &ppos))
 	{
-		if(PointComp(ppos, &compPos)==1)
+		if(PointComp(ppos, &compPos)==1 || PointComp(ppos, &compPos) == 0) // 원래 리턴값 1인 부분만 지웠는데, 이는 작성자가 의도한 바가 아님, x값이 2인 경우 모두 삭제하려면 리턴값 0인 경우도 삭제해야함
 		{
 			ppos=LRemove(&list);
 			free(ppos);
@@ -54,7 +58,7 @@ int main(void)
 		
 		while(LNext(&list, &ppos)) 
 		{
-			if(PointComp(ppos, &compPos)==1)
+			if(PointComp(ppos, &compPos) == 1 || PointComp(ppos, &compPos) == 0)
 			{
 				ppos=LRemove(&list);
 				free(ppos);

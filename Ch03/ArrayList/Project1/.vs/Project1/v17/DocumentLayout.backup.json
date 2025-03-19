@@ -1,0 +1,53 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\user\\Desktop\\dataStructure\\Ch03\\ArrayList\\Project1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{3058DFF2-532C-4CEB-81FE-FAFC248ADD20}|Project1\\Project1.vcxproj|C:\\Users\\user\\Desktop\\dataStructure\\Ch03\\ArrayList\\Project1\\ListMain.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3058DFF2-532C-4CEB-81FE-FAFC248ADD20}|Project1\\Project1.vcxproj|solutionrelative:ListMain.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3058DFF2-532C-4CEB-81FE-FAFC248ADD20}|Project1\\Project1.vcxproj|C:\\Users\\user\\Desktop\\dataStructure\\Ch03\\ArrayList\\Project1\\ArrayList.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3058DFF2-532C-4CEB-81FE-FAFC248ADD20}|Project1\\Project1.vcxproj|solutionrelative:ArrayList.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ListMain.c",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\dataStructure\\Ch03\\ArrayList\\Project1\\ListMain.c",
+              "RelativeDocumentMoniker": "ListMain.c",
+              "ToolTip": "C:\\Users\\user\\Desktop\\dataStructure\\Ch03\\ArrayList\\Project1\\ListMain.c",
+              "RelativeToolTip": "ListMain.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-03-17T02:13:57.966Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ArrayList.h",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\dataStructure\\Ch03\\ArrayList\\Project1\\ArrayList.h",
+              "RelativeDocumentMoniker": "ArrayList.h",
+              "ToolTip": "C:\\Users\\user\\Desktop\\dataStructure\\Ch03\\ArrayList\\Project1\\ArrayList.h",
+              "RelativeToolTip": "ArrayList.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-03-17T02:13:56.216Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
