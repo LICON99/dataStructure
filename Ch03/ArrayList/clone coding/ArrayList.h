@@ -20,9 +20,7 @@ typedef ArrayList List;
 
 void ListInit(List *plist);
 void LInsert(List *plist, LData data);
-void printArr(List *plist);
 
-int LAdd(List *plist, int index, LData data);
 int LFirst(List *plist, LData *pdata);
 int LNext(List *plist, LData *pdata);
 

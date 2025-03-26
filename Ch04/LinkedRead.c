@@ -1,35 +1,36 @@
 #include <stdio.h>
 #include <stdlib.h>
+#pragma warning(disable:4996)
 
 typedef struct _node
 {
 	int data;
-	struct _node * next;
+	struct _node *next;
 } Node;
 
 int main(void)
 {
-	Node * head = NULL;    // NULL Æ÷ÀÎÅÍ ÃÊ±âÈ­
-	Node * tail = NULL;
-	Node * cur = NULL;
+	Node *head = NULL; // NULL ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
+	Node *tail = NULL;
+	Node *cur = NULL;
 
-	Node * newNode = NULL;
+	Node *newNode = NULL;
 	int readData;
 
-	/**** µ¥ÀÌÅÍ¸¦ ÀÔ·Â ¹Þ´Â °úÁ¤ ****/
-	while(1)
+	/**** ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Ô·ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ****/
+	while (1)
 	{
-		printf("ÀÚ¿¬¼ö ÀÔ·Â: ");
+		printf("input integer : ");
 		scanf("%d", &readData);
-		if(readData < 1)
+		if (readData < 1)
 			break;
 
-		/*** ³ëµåÀÇ Ãß°¡°úÁ¤ ***/
-		newNode = (Node*)malloc(sizeof(Node));
+		/*** ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ ***/
+		newNode = (Node *)malloc(sizeof(Node));
 		newNode->data = readData;
 		newNode->next = NULL;
 
-		if(head == NULL)
+		if (head == NULL)
 			head = newNode;
 		else
 			tail->next = newNode;
@@ -38,45 +39,45 @@ int main(void)
 	}
 	printf("\n");
 
-	/**** ÀÔ·Â ¹ÞÀº µ¥ÀÌÅÍÀÇ Ãâ·Â°úÁ¤ ****/
-	printf("ÀÔ·Â ¹ÞÀº µ¥ÀÌÅÍÀÇ ÀüÃ¼Ãâ·Â! \n");
-	if(head == NULL) 
+	/**** ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â°ï¿½ï¿½ï¿½ ****/
+	printf("ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½! \n");
+	if (head == NULL)
 	{
-		printf("ÀúÀåµÈ ÀÚ¿¬¼ö°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù. \n");
+		printf("ì €ìž¥ëœ ìžì—°ìˆ˜ê°€ ì¡´ìž¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤. \n");
 	}
-	else 
+	else
 	{
-		cur = head; 
-		printf("%d  ", cur->data);   // Ã¹ ¹øÂ° µ¥ÀÌÅÍ Ãâ·Â
-		
-		while(cur->next != NULL)    // µÎ ¹øÂ° ÀÌÈÄÀÇ µ¥ÀÌÅÍ Ãâ·Â
+		cur = head;
+		printf("%d  ", cur->data); // Ã¹ ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+		while (cur->next != NULL) // ï¿½ï¿½ ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		{
 			cur = cur->next;
 			printf("%d  ", cur->data);
 		}
 	}
+
 	printf("\n\n");
 
-	/**** ¸Þ¸ð¸®ÀÇ ÇØÁ¦°úÁ¤ ****/
-	if(head == NULL) 
+	/**** ï¿½Þ¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ****/
+	if (head == NULL)
 	{
-		return 0;    // ÇØÁ¦ÇÒ ³ëµå°¡ Á¸ÀçÇÏÁö ¾Ê´Â´Ù.
+		return 0; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½å°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 	}
-	else 
+	else
 	{
-		Node * delNode = head;
-		Node * delNextNode = head->next;
+		Node *delNode = head;
+		Node *delNextNode = head->next;
 
-		printf("%dÀ»(¸¦) »èÁ¦ÇÕ´Ï´Ù. \n", head->data);
-		free(delNode);    // Ã¹ ¹øÂ° ³ëµåÀÇ »èÁ¦
-		
-		while(delNextNode != NULL)    // µÎ ¹øÂ° ÀÌÈÄÀÇ ³ëµå »èÁ¦ À§ÇÑ ¹Ýº¹¹®
+		printf("%d ì„ ì‚­ì œ. \n", head->data);
+		free(delNode); // Ã¹ ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+
+		while (delNextNode != NULL) // ï¿½ï¿½ ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ýºï¿½ï¿½ï¿½
 		{
 			delNode = delNextNode;
 			delNextNode = delNextNode->next;
 
-			printf("%dÀ»(¸¦) »èÁ¦ÇÕ´Ï´Ù. \n", delNode->data);
-			free(delNode);    // µÎ ¹øÂ° ÀÌÈÄÀÇ ³ëµå »èÁ¦
+			printf("%d ì„ ì‚­ì œ. \n", delNode->data);
+			free(delNode); // ï¿½ï¿½ ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		}
 	}
 
