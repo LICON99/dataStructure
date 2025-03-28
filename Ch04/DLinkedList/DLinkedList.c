@@ -96,18 +96,25 @@ int LAdd(List *plist, int index, LData data)
 {
 	Node *newNode = (Node *)malloc(sizeof(Node)); // create new node.
 
-	printf("LAdd index : %d, data : %d\n", index, data); // debugging message
-	if (index < 0)										 // if the index < 0, fail.
+	printf("LAdd start, index : %d, data : %d\n", index, data); // debugging message
+	if (index < 0)												// if the index < 0, fail.
+	{
+		printf("LAdd failed : index < 0\n\n");
 		return FALSE;
+	}
 	if (index >= plist->numOfData) // if the index >= numOfData, fail.
+	{
+		printf("LAdd failed : index >= numOfData\n\n");
 		return FALSE;
+	}
+
 	plist->before = plist->head;
 	plist->cur = plist->head->next; // reinit before and cur pointer
 	for (int i = 0; i < index; i++)
 	{
 		plist->before = plist->cur;
 		plist->cur = plist->cur->next;
-	} // move cur pointer to index location
+	} // move before and cur pointer to index location
 	newNode->data = data;
 	newNode->next = plist->cur;	   // add a new node at the designated index.
 	plist->before->next = newNode; // Link the newNode back and forth to existing nodes.

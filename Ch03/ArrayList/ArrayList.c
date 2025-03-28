@@ -11,7 +11,7 @@ void LInsert(List *plist, LData data)
 {
 	if (plist->numOfData + 1 > LIST_LEN)
 	{
-		printf("더이상 저장할 수 없습니다.\n");
+		printf("Cannot store more data.\n");
 		return;
 	}
 	plist->arr[plist->numOfData] = data;
@@ -60,21 +60,33 @@ int LCount(List *plist)
 
 int LAdd(List *plist, int index, LData data)
 {
+	printf("LAdd start, index: %d, data: %d\n", index, data); // debugging message
 	if (index < 0)
+	{
+		printf("LAdd failed : index < 0\n\n"); // Exception handling: index < 0
 		return FALSE;
-	if (plist->numOfData <= index || plist->numOfData == LIST_LEN)
+	}
+	if (plist->numOfData <= index)
+	{
+		printf("LAdd failed : index >= numOfData\n\n"); // Exception handling: index >= numOfData
 		return FALSE;
-	for (int i = plist->numOfData; i > index; i--)
+	}
+	if (plist->numOfData == LIST_LEN)
+	{
+		printf("LAdd failed : the list has reached its storage limit(100) \n");
+		return FALSE;
+	}
+	for (int i = plist->numOfData; i > index; i--) // Shift the elements of the array one position to the right from the specified index to the end.
 		plist->arr[i] = plist->arr[i - 1];
-	plist->numOfData++;
-	plist->arr[index] = data;
+	plist->arr[index] = data; // Add new data into the specified index
+	plist->numOfData++;		  // Increase numOfData by 1 after adding.
 	return TRUE;
 }
 
-void printArr(List *plist)
+void printArr(List *plist) // Print the list
 {
 	LData data;
-	printf("Num of Data : %d \n", LCount(plist));
+	printf("Number of Data : %d \n", LCount(plist));
 	if (LFirst(plist, &data))
 	{
 		printf("%d ", data);
