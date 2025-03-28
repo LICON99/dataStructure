@@ -61,4 +61,4 @@ int main(void)
 	else
 		printf("LAdd failed\n");
 	return 0;
-}
+} // 이 텍스트는 한글입니다. 윈도우에서 곧 깨질 텍스트이죠.
