@@ -10,7 +10,7 @@ int main(void)
 
 	/*** 5개의 데이터 저장 ***/
 	for (int i = 0; i < 94; i++)
-		LInsert(&list, 11);
+		LInsert(&list, 0);
 
 	/*** 저장된 데이터의 전체 출력 ***/
 	printf("현재 데이터의 수: %d \n", LCount(&list));
@@ -38,56 +38,48 @@ int main(void)
 
 	/*** 삭제 후 저장된 데이터 전체 출력 ***/
 	printf("현재 데이터의 수: %d \n", LCount(&list));
-
 	if (LFirst(&list, &data))
 	{
 		printf("%d ", data);
-
 		while (LNext(&list, &data))
 			printf("%d ", data);
 	}
 	printf("\n\n");
 
 	printf("LADD start - index : %d, data : %d\n", 1, -9);
-
 	if (LAdd(&list, 1, -9))
 		printArr(&list);
-
 	else
 		printf("LADD failed\n");
+
 	printf("LADD start - index : %d, data : %d\n", 2, -8);
-
 	if (LAdd(&list, 2, -8))
-
 		printArr(&list);
-
 	else
 		printf("LADD failed\n");
+
 	printf("LADD start - index : %d, data : %d\n", 0, -1);
-
 	if (LAdd(&list, 0, -1))
-
 		printArr(&list);
-
 	else
 		printf("LADD failed\n");
+
 	printf("LADD start - index : %d, data : %d\n", 5, -11);
 	if (LAdd(&list, 5, -11))
-
 		printArr(&list);
-
 	else
 		printf("LADD failed\n");
+
 	printf("LADD start - index : %d, data : %d\n", 7, -19);
 	if (LAdd(&list, 7, -19))
 		printArr(&list);
 	else
 		printf("LADD failed\n");
+
 	printf("LADD start - index : %d, data : %d\n", 98, -99);
 	if (LAdd(&list, 98, -99))
 		printArr(&list);
 	else
 		printf("LADD failed\n");
-
 	return 0;
 }
