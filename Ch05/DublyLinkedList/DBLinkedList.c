@@ -60,3 +60,19 @@ int LCount(List * plist)
 {
 	return plist->numOfData;
 }
+
+Data LRemove(List * plist)
+{
+	Node * rpos = plist->cur;
+	Data remv = rpos->data;
+	if(plist->cur->prev!= NULL)
+	plist->cur->prev->next = plist->cur->next;
+	plist->cur->next->prev = plist->cur->prev;
+	printf("dubg\n");
++
+	plist->cur = plist->cur->prev;  
+
+	free(rpos);
+	(plist->numOfData)--;
+	return remv;
+}

@@ -3,18 +3,18 @@
 
 int main(void)
 {
-	// ¾ç¹æÇâ ¿¬°á ¸®½ºÆ®ÀÇ »ý¼º ¹× ÃÊ±âÈ­  ///////
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ê±ï¿½È­  ///////
 	List list;
 	int data;
 	ListInit(&list);
 
-	// 8°³ÀÇ µ¥ÀÌÅÍ ÀúÀå  ///////
+	// 8ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½  ///////
 	LInsert(&list, 1);  LInsert(&list, 2);
 	LInsert(&list, 3);  LInsert(&list, 4);
 	LInsert(&list, 5);  LInsert(&list, 6);
 	LInsert(&list, 7);  LInsert(&list, 8);
 
-	// ÀúÀåµÈ µ¥ÀÌÅÍÀÇ Á¶È¸  ///////
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸  ///////
 	if(LFirst(&list, &data))
 	{
 		printf("%d ", data);
@@ -28,5 +28,32 @@ int main(void)
 		printf("\n\n");
 	}
 
+	//LRemove í•¨ìˆ˜ êµ¬í˜„
+	if(LFirst(&list, &data))
+	{
+		printf("start\n"
+		);
+		if(data == 8)
+			LRemove(&list);
+printf("here\n");
+		while(LNext(&list, &data))
+		{printf("in while\n");
+			if(data == 8)
+			LRemove(&list);
+		}
+	}
+
+	if(LFirst(&list, &data))
+	{
+		printf("%d ", data);
+
+		while(LNext(&list, &data)) 
+			printf("%d ", data);
+		
+		while(LPrevious(&list, &data))
+			printf("%d ", data);
+		
+		printf("\n\n");
+	}
 	return 0;
 }

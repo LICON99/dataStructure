@@ -30,5 +30,6 @@ int LNext(List * plist, Data * pdata);
 int LPrevious(List * plist, Data * pdata);
 
 int LCount(List * plist);
+Data LRemove(List * plist);
 
 #endif
