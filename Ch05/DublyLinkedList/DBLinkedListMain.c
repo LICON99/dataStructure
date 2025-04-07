@@ -1,57 +1,88 @@
 #include <stdio.h>
 #include "DBLinkedList.h"
 
-void LPrint(List *list, Data *data);
 int main(void)
 {
-	// ����� ���� ����Ʈ�� ���� �� �ʱ�ȭ  ///////
 	List list;
 	int data;
+
+	// Initialize the list
 	ListInit(&list);
 
-	// 8���� ������ ����  ///////
-	LInsert(&list, 1);  LInsert(&list, 2);
-	LInsert(&list, 3);  LInsert(&list, 4);
-	LInsert(&list, 5);  LInsert(&list, 6);
-	LInsert(&list, 7);  LInsert(&list, 8);
+	// Insert multiple values into the list
+	LInsert(&list, 77);
+	LInsert(&list, 77);
+	LInsert(&list, 0);
+	LInsert(&list, 77);
+	LInsert(&list, 0);
+	LInsert(&list, 0);
+	LInsert(&list, 0);
+	LInsert(&list, 0);
+	LInsert(&list, 0);
+	LInsert(&list, 77);
+	LInsert(&list, 0);
+	LInsert(&list, 77);
+	LInsert(&list, 0);
+	LInsert(&list, 0);
+	LInsert(&list, 0);
+	LInsert(&list, 77);
+	LInsert(&list, 0);
+	LInsert(&list, 77);
+	LInsert(&list, 77);
+	LInsert(&list, 77);
 
-	// ����� �������� ��ȸ  ///////
-LPrint(&list,&data);
+	// Print the list before deletion
+	LPrint(&list, &data);
 
-	//LRemove 함수 구현
-	if(LFirst(&list, &data))
+	// Remove all nodes with value 77
+	if (LFirst(&list, &data))
 	{
-		while(list.cur->next!=NULL)
+		while (1)
 		{
-			if(data==8 && list.cur == list.head)
-			{
-				printf("in\n");
+			// Continuously remove 77 if found at current position
+			while (data == 77 && list.cur != NULL)
 				LRemove(&list, &data);
-				continue;
+
+			// Exit if end of list is reached
+			if (list.cur == NULL || list.cur->next == NULL)
+				break;
+
+			// Move to next 77 to remove
+			while (data != 77)
+			{
+				if (!LNext(&list, &data))
+					break;
 			}
-			// printf("out\n");
-			LNext(&list, &data);
-			// printf("numofdata : %d\n",list.numOfData);
-			// LPrint(&list,&data);
-			// printf(" cur data : %d\n",data);
 		}
 	}
-	return 0;
-}
-		
-void LPrint(List *list, Data *data)
-{
-	if(LFirst(list, data))
-	{
-		printf("print start\n");
-		printf("%d ", *data);
 
-		while(LNext(list, data)) 
-			printf("%d ", *data);
-		
-		while(LPrevious(list, data))
-			printf("%d ", *data);
-		
-		printf("\n\n");
+	// Print the list after removing all 77s
+	LPrint(&list, &data);
+
+	// Remove all remaining 0s to make the list empty
+	if (LFirst(&list, &data))
+	{
+		while (1)
+		{
+			// Continuously remove 0 if found at current position
+			while (data == 0 && list.cur != NULL)
+				LRemove(&list, &data);
+
+			// Exit if end of list is reached
+			if (list.cur == NULL || list.cur->next == NULL)
+				break;
+
+			// Move to next 0 to remove
+			while (data != 0)
+			{
+				if (!LNext(&list, &data))
+					break;
+			}
+		}
 	}
+
+	// Print the list after removing all 0s; the list now should be empty
+	LPrint(&list, &data);
+
+	return 0;
 }

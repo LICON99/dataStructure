@@ -2,19 +2,19 @@
 #include <stdlib.h>
 #include "DBLinkedList.h"
 
-void ListInit(List * plist)
+void ListInit(List *plist)
 {
 	plist->head = NULL;
 	plist->numOfData = 0;
 }
 
-void LInsert(List * plist, Data data)
+void LInsert(List *plist, Data data)
 {
-	Node * newNode = (Node*)malloc(sizeof(Node));
+	Node *newNode = (Node *)malloc(sizeof(Node));
 	newNode->data = data;
 
 	newNode->next = plist->head;
-	if(plist->head != NULL)
+	if (plist->head != NULL)
 		plist->head->prev = newNode;
 
 	newNode->prev = NULL;
@@ -23,9 +23,9 @@ void LInsert(List * plist, Data data)
 	(plist->numOfData)++;
 }
 
-int LFirst(List * plist, Data * pdata)
+int LFirst(List *plist, Data *pdata)
 {
-	if(plist->head == NULL)
+	if (plist->head == NULL)
 		return FALSE;
 
 	plist->cur = plist->head;
@@ -34,9 +34,9 @@ int LFirst(List * plist, Data * pdata)
 	return TRUE;
 }
 
-int LNext(List * plist, Data * pdata)
+int LNext(List *plist, Data *pdata)
 {
-	if(plist->cur->next == NULL)
+	if (plist->cur->next == NULL)
 		return FALSE;
 
 	plist->cur = plist->cur->next;
@@ -45,9 +45,9 @@ int LNext(List * plist, Data * pdata)
 	return TRUE;
 }
 
-int LPrevious(List * plist, Data * pdata)
+int LPrevious(List *plist, Data *pdata)
 {
-	if(plist->cur->prev == NULL)
+	if (plist->cur->prev == NULL)
 		return FALSE;
 
 	plist->cur = plist->cur->prev;
@@ -56,49 +56,48 @@ int LPrevious(List * plist, Data * pdata)
 	return TRUE;
 }
 
-int LCount(List * plist)
+int LCount(List *plist)
 {
 	return plist->numOfData;
 }
 
-Data LRemove(List * plist, Data * data)
+Data LRemove(List *plist, Data *data)
 {
-	Node * rpos = plist->cur;
+	Node *rpos = plist->cur;
 	Data remv = rpos->data;
-	/*case 1 : cur node is front and next is not empty*/
-	if(plist->cur == plist->head && plist->cur->next!=NULL)
-	{
-		printf("case 1\n");
-		*data=plist->cur->data;
-		plist->head=plist->head->next;
-		plist->head->prev == NULL;
-		plist->cur=plist->head;
-	}
-	/* case 2 : prev is present and next is empty*/
-	if(plist->cur->prev != NULL && plist->cur->next ==NULL)
-	{
-		printf("case 2\n");
-		plist->cur=plist->cur->prev;
-		plist->cur->next=NULL;
-	}
-	/*case 3 : cur node is only one node*/
-	if(plist->cur->next == NULL && plist->cur->prev == NULL)
-	{
-		printf("case 3\n");
-		*data=plist->cur->data;
-		plist->cur=NULL;
-		plist->head=NULL;
-	}
-	/*case 4 : prev and next are not empty*/
-	if(plist->cur->next != NULL && plist->cur->prev != NULL)
-	{
-		printf("case 4\n");
-		plist->cur->next->prev = plist->cur->prev;
-		plist->cur->prev->next = plist ->cur->next;
-		plist->cur=plist->cur->prev;
-	}
-	
+
+	// If the current node is the head, move the head to the next node
+	if (rpos == plist->head)
+		plist->head = rpos->next;
+
+	// Connect the previous and next nodes of the current node
+	if (rpos->prev != NULL)
+		rpos->prev->next = rpos->next;
+	if (rpos->next != NULL)
+		rpos->next->prev = rpos->prev;
+
+	// Save the data of the next node (if it exists)
+	if (plist->cur->next != NULL)
+		*data = plist->cur->next->data;
+
+	// Move the current pointer to the next node
+	plist->cur = plist->cur->next;
+
+	// Remove the rpos data
 	free(rpos);
 	(plist->numOfData)--;
 	return remv;
+}
+
+void LPrint(List *plist, Data *data)
+{
+	printf("numOfData : %d\n", LCount(plist));
+
+	if (LFirst(plist, data))
+	{
+		printf("%d ", *data);
+		while (LNext(plist, data))
+			printf("%d ", *data);
+		printf("\n\n");
+	}
 }
