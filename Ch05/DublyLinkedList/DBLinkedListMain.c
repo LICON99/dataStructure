@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "DBLinkedList.h"
 
+void LPrint(List *list, Data *data);
 int main(void)
 {
 	// ����� ���� ����Ʈ�� ���� �� �ʱ�ȭ  ///////
@@ -15,45 +16,42 @@ int main(void)
 	LInsert(&list, 7);  LInsert(&list, 8);
 
 	// ����� �������� ��ȸ  ///////
-	if(LFirst(&list, &data))
-	{
-		printf("%d ", data);
-
-		while(LNext(&list, &data)) 
-			printf("%d ", data);
-		
-		while(LPrevious(&list, &data))
-			printf("%d ", data);
-		
-		printf("\n\n");
-	}
+LPrint(&list,&data);
 
 	//LRemove 함수 구현
 	if(LFirst(&list, &data))
 	{
-		printf("start\n"
-		);
-		if(data == 8)
-			LRemove(&list);
-printf("here\n");
-		while(LNext(&list, &data))
-		{printf("in while\n");
-			if(data == 8)
-			LRemove(&list);
+		while(list.cur->next!=NULL)
+		{
+			if(data==8 && list.cur == list.head)
+			{
+				printf("in\n");
+				LRemove(&list, &data);
+				continue;
+			}
+			// printf("out\n");
+			LNext(&list, &data);
+			// printf("numofdata : %d\n",list.numOfData);
+			// LPrint(&list,&data);
+			// printf(" cur data : %d\n",data);
 		}
 	}
-
-	if(LFirst(&list, &data))
-	{
-		printf("%d ", data);
-
-		while(LNext(&list, &data)) 
-			printf("%d ", data);
+	return 0;
+}
 		
-		while(LPrevious(&list, &data))
-			printf("%d ", data);
+void LPrint(List *list, Data *data)
+{
+	if(LFirst(list, data))
+	{
+		printf("print start\n");
+		printf("%d ", *data);
+
+		while(LNext(list, data)) 
+			printf("%d ", *data);
+		
+		while(LPrevious(list, data))
+			printf("%d ", *data);
 		
 		printf("\n\n");
 	}
-	return 0;
 }

@@ -61,17 +61,43 @@ int LCount(List * plist)
 	return plist->numOfData;
 }
 
-Data LRemove(List * plist)
+Data LRemove(List * plist, Data * data)
 {
 	Node * rpos = plist->cur;
 	Data remv = rpos->data;
-	if(plist->cur->prev!= NULL)
-	plist->cur->prev->next = plist->cur->next;
-	plist->cur->next->prev = plist->cur->prev;
-	printf("dubg\n");
-+
-	plist->cur = plist->cur->prev;  
-
+	/*case 1 : cur node is front and next is not empty*/
+	if(plist->cur == plist->head && plist->cur->next!=NULL)
+	{
+		printf("case 1\n");
+		*data=plist->cur->data;
+		plist->head=plist->head->next;
+		plist->head->prev == NULL;
+		plist->cur=plist->head;
+	}
+	/* case 2 : prev is present and next is empty*/
+	if(plist->cur->prev != NULL && plist->cur->next ==NULL)
+	{
+		printf("case 2\n");
+		plist->cur=plist->cur->prev;
+		plist->cur->next=NULL;
+	}
+	/*case 3 : cur node is only one node*/
+	if(plist->cur->next == NULL && plist->cur->prev == NULL)
+	{
+		printf("case 3\n");
+		*data=plist->cur->data;
+		plist->cur=NULL;
+		plist->head=NULL;
+	}
+	/*case 4 : prev and next are not empty*/
+	if(plist->cur->next != NULL && plist->cur->prev != NULL)
+	{
+		printf("case 4\n");
+		plist->cur->next->prev = plist->cur->prev;
+		plist->cur->prev->next = plist ->cur->next;
+		plist->cur=plist->cur->prev;
+	}
+	
 	free(rpos);
 	(plist->numOfData)--;
 	return remv;
