@@ -2,12 +2,15 @@
 #include <stdlib.h>
 #include "DBLinkedList.h"
 
+// Initialize the list
 void ListInit(List *plist)
 {
 	plist->head = NULL;
+	plist->cur = NULL;
 	plist->numOfData = 0;
 }
 
+// Insert a new node at the front of the list
 void LInsert(List *plist, Data data)
 {
 	Node *newNode = (Node *)malloc(sizeof(Node));
@@ -23,6 +26,7 @@ void LInsert(List *plist, Data data)
 	(plist->numOfData)++;
 }
 
+// Retrieve the first node's data
 int LFirst(List *plist, Data *pdata)
 {
 	if (plist->head == NULL)
@@ -34,8 +38,12 @@ int LFirst(List *plist, Data *pdata)
 	return TRUE;
 }
 
+// Move to the next node and retrieve its data
 int LNext(List *plist, Data *pdata)
 {
+	if (plist->cur == NULL)
+		return LFirst(plist, pdata);
+
 	if (plist->cur->next == NULL)
 		return FALSE;
 
@@ -45,8 +53,12 @@ int LNext(List *plist, Data *pdata)
 	return TRUE;
 }
 
+// Move to the previous node and retrieve its data
 int LPrevious(List *plist, Data *pdata)
 {
+	if (plist->cur == NULL)
+		return FALSE;
+
 	if (plist->cur->prev == NULL)
 		return FALSE;
 
@@ -56,39 +68,42 @@ int LPrevious(List *plist, Data *pdata)
 	return TRUE;
 }
 
+// Return the total number of nodes
 int LCount(List *plist)
 {
 	return plist->numOfData;
 }
 
-Data LRemove(List *plist, Data *data)
+// Remove the current node and return its data
+Data LRemove(List *plist)
 {
 	Node *rpos = plist->cur;
 	Data remv = rpos->data;
 
-	// If the current node is the head, move the head to the next node
-	if (rpos == plist->head)
-		plist->head = rpos->next;
-
-	// Connect the previous and next nodes of the current node
+	// Link the previous and next nodes to bypass the current node
 	if (rpos->prev != NULL)
 		rpos->prev->next = rpos->next;
 	if (rpos->next != NULL)
 		rpos->next->prev = rpos->prev;
 
-	// Save the data of the next node (if it exists)
-	if (plist->cur->next != NULL)
-		*data = plist->cur->next->data;
+	// Case: removing the first node (but the list has more than one node)
+	if (rpos->next != NULL && rpos->prev == NULL)
+		plist->head = rpos->next;
 
-	// Move the current pointer to the next node
-	plist->cur = plist->cur->next;
+	// Case: removing the last remaining node in the list
+	if (rpos->next == NULL && rpos->prev == NULL)
+		plist->head = NULL;
 
-	// Remove the rpos data
+	// Move the current pointer to the previous node
+	plist->cur = rpos->prev;
+
+	// Free the memory of the removed node
 	free(rpos);
 	(plist->numOfData)--;
 	return remv;
 }
 
+// Print all the data in the list
 void LPrint(List *plist, Data *data)
 {
 	printf("numOfData : %d\n", LCount(plist));

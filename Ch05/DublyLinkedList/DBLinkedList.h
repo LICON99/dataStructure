@@ -30,7 +30,7 @@ int LNext(List *plist, Data *pdata);
 int LPrevious(List *plist, Data *pdata);
 
 int LCount(List *plist);
-Data LRemove(List *plist, Data *data);
+Data LRemove(List *plist);
 void LPrint(List *list, Data *data);
 
 #endif

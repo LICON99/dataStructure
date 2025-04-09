@@ -58,7 +58,7 @@ Data LRemove(List * plist)
 	plist->cur->prev->next = plist->cur->next;
 	plist->cur->next->prev = plist->cur->prev;
 
-	plist->cur = plist->cur->prev;    // curÀÇ À§Ä¡¸¦ ÀçÁ¶Á¤
+	plist->cur = plist->cur->prev;    // curï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	free(rpos);
 	(plist->numOfData)--;
