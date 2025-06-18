@@ -19,7 +19,6 @@ int main(void)
 	{
 		if (data == 22)
 			LRemove(&list);
-
 		while (LNext(&list, &data))
 		{
 			if (data == 22)

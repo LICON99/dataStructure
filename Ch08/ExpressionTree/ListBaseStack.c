@@ -33,7 +33,7 @@ Data SPop(Stack * pstack)
 	if(SIsEmpty(pstack)) {
 		printf("Stack Memory Error!");
 		exit(-1);
-	}
+	} 
 
 	rdata = pstack->head->data;
 	rnode = pstack->head;

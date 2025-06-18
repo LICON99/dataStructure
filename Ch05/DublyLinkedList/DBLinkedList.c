@@ -15,14 +15,11 @@ void LInsert(List *plist, Data data)
 {
 	Node *newNode = (Node *)malloc(sizeof(Node));
 	newNode->data = data;
-
 	newNode->next = plist->head;
 	if (plist->head != NULL)
 		plist->head->prev = newNode;
-
 	newNode->prev = NULL;
 	plist->head = newNode;
-
 	(plist->numOfData)++;
 }
 

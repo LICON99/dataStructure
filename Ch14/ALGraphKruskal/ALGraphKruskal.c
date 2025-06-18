@@ -8,72 +8,72 @@
 int WhoIsPrecede(int data1, int data2);
 int PQWeightComp(Edge d1, Edge d2);
 
-void GraphInit(ALGraph * pg, int nv)
+void GraphInit(ALGraph *pg, int nv)
 {
-	int i;	
+	int i;
 
-	pg->adjList = (List*)malloc(sizeof(List)*nv);
+	pg->adjList = (List *)malloc(sizeof(List) * nv);
 	pg->numV = nv;
 	pg->numE = 0;
 
-	for(i=0; i<nv; i++)
+	for (i = 0; i < nv; i++)
 	{
 		ListInit(&(pg->adjList[i]));
-		SetSortRule(&(pg->adjList[i]), WhoIsPrecede); 
+		SetSortRule(&(pg->adjList[i]), WhoIsPrecede);
 	}
 
-	pg->visitInfo= (int *)malloc(sizeof(int) * pg->numV);
+	pg->visitInfo = (int *)malloc(sizeof(int) * pg->numV);
 	memset(pg->visitInfo, 0, sizeof(int) * pg->numV);
 
-	// ¿ì¼±¼øÀ§ Å¥ÀÇ ÃÊ±âÈ­
+	// ìš°ì„ ìˆœìœ„ íì˜ ì´ˆê¸°í™”
 	PQueueInit(&(pg->pqueue), PQWeightComp);
 }
 
-void GraphDestroy(ALGraph * pg)
+void GraphDestroy(ALGraph *pg)
 {
-	if(pg->adjList != NULL)
+	if (pg->adjList != NULL)
 		free(pg->adjList);
 
-	if(pg->visitInfo != NULL)
+	if (pg->visitInfo != NULL)
 		free(pg->visitInfo);
 }
 
-void AddEdge(ALGraph * pg, int fromV, int toV, int weight)
+void AddEdge(ALGraph *pg, int fromV, int toV, int weight)
 {
-	Edge edge = {fromV, toV, weight};     // °£¼±ÀÇ Á¤º¸ »ý¼º
+	Edge edge = {fromV, toV, weight}; // ê°„ì„ ì˜ ì •ë³´ ìƒì„±
 
 	LInsert(&(pg->adjList[fromV]), toV);
 	LInsert(&(pg->adjList[toV]), fromV);
 	pg->numE += 1;
 
-	// °£¼±ÀÇ Á¤º¸¸¦ ¿ì¼±¼øÀ§ Å¥¿¡ ÀúÀå
+	// ê°„ì„ ì˜ ì •ë³´ë¥¼ ìš°ì„ ìˆœìœ„ íì— ì €ìž¥
 	PEnqueue(&(pg->pqueue), edge);
 }
 
 // ConKruskalMST Helper function
-void RecoverEdge(ALGraph * pg, int fromV, int toV, int weight)
+void RecoverEdge(ALGraph *pg, int fromV, int toV, int weight)
 {
 	LInsert(&(pg->adjList[fromV]), toV);
 	LInsert(&(pg->adjList[toV]), fromV);
 	(pg->numE)++;
 }
 
-// ÇÑÂÊ ¹æÇâÀÇ °£¼± ¼Ò¸ê: ConKruskalMST Helper function
-void RemoveWayEdge(ALGraph * pg, int fromV, int toV)
+// ë‹¨ë°©í–¥ ê°„ì„  ì‚­ì œ: ConKruskalMST Helper function
+void RemoveWayEdge(ALGraph *pg, int fromV, int toV)
 {
 	int edge;
 
-	if(LFirst(&(pg->adjList[fromV]), &edge))
+	if (LFirst(&(pg->adjList[fromV]), &edge))
 	{
-		if(edge == toV)
+		if (edge == toV)
 		{
 			LRemove(&(pg->adjList[fromV]));
 			return;
 		}
 
-		while(LNext(&(pg->adjList[fromV]), &edge))
+		while (LNext(&(pg->adjList[fromV]), &edge))
 		{
-			if(edge == toV)
+			if (edge == toV)
 			{
 				LRemove(&(pg->adjList[fromV]));
 				return;
@@ -82,49 +82,49 @@ void RemoveWayEdge(ALGraph * pg, int fromV, int toV)
 	}
 }
 
-// °£¼±ÀÇ ¼Ò¸ê: ConKruskalMST Helper function
-void RemoveEdge(ALGraph * pg, int fromV, int toV)
+// ê°„ì„  ì‚­ì œ: ConKruskalMST Helper function
+void RemoveEdge(ALGraph *pg, int fromV, int toV)
 {
 	RemoveWayEdge(pg, fromV, toV);
 	RemoveWayEdge(pg, toV, fromV);
 	(pg->numE)--;
 }
- 
-void ShowGraphEdgeInfo(ALGraph * pg)
+
+void ShowGraphEdgeInfo(ALGraph *pg)
 {
 	int i;
 	int vx;
 
-	for(i=0; i<pg->numV; i++)
+	for (i = 0; i < pg->numV; i++)
 	{
-		printf("%c¿Í ¿¬°áµÈ Á¤Á¡: ", i + 65);
-		
-		if(LFirst(&(pg->adjList[i]), &vx))
+		printf("%cì™€ ì—°ê²°ëœ ì •ì : ", i + 65);
+
+		if (LFirst(&(pg->adjList[i]), &vx))
 		{
 			printf("%c ", vx + 65);
-			
-			while(LNext(&(pg->adjList[i]), &vx))
+
+			while (LNext(&(pg->adjList[i]), &vx))
 				printf("%c ", vx + 65);
 		}
 		printf("\n");
 	}
 }
 
-void ShowGraphEdgeWeightInfo(ALGraph * pg)
+void ShowGraphEdgeWeightInfo(ALGraph *pg)
 {
 	PQueue copyPQ = pg->pqueue;
 	Edge edge;
 
-	while(!PQIsEmpty(&copyPQ))
+	while (!PQIsEmpty(&copyPQ))
 	{
 		edge = PDequeue(&copyPQ);
-		printf("(%c-%c), w:%d \n", edge.v1+65, edge.v2+65, edge.weight);
+		printf("(%c-%c), w:%d \n", edge.v1 + 65, edge.v2 + 65, edge.weight);
 	}
 }
 
 int WhoIsPrecede(int data1, int data2)
 {
-	if(data1 < data2)
+	if (data1 < data2)
 		return 0;
 	else
 		return 1;
@@ -135,20 +135,19 @@ int PQWeightComp(Edge d1, Edge d2)
 	return d1.weight - d2.weight;
 }
 
-int VisitVertex(ALGraph * pg, int visitV)
+int VisitVertex(ALGraph *pg, int visitV)
 {
-	if(pg->visitInfo[visitV] == 0)
+	if (pg->visitInfo[visitV] == 0)
 	{
 		pg->visitInfo[visitV] = 1;
-	//	printf("%c ", visitV + 65);
+		// printf("%c ", visitV + 65);
 		return TRUE;
 	}
-	
+
 	return FALSE;
 }
 
-
-void DFShowGraphVertex(ALGraph * pg, int startV)
+void DFShowGraphVertex(ALGraph *pg, int startV)
 {
 	Stack stack;
 	int visitV = startV;
@@ -158,11 +157,11 @@ void DFShowGraphVertex(ALGraph * pg, int startV)
 	VisitVertex(pg, visitV);
 	SPush(&stack, visitV);
 
-	while(LFirst(&(pg->adjList[visitV]), &nextV) == TRUE)
+	while (LFirst(&(pg->adjList[visitV]), &nextV) == TRUE)
 	{
 		int visitFlag = FALSE;
 
-		if(VisitVertex(pg, nextV) == TRUE)
+		if (VisitVertex(pg, nextV) == TRUE)
 		{
 			SPush(&stack, visitV);
 			visitV = nextV;
@@ -170,9 +169,9 @@ void DFShowGraphVertex(ALGraph * pg, int startV)
 		}
 		else
 		{
-			while(LNext(&(pg->adjList[visitV]), &nextV) == TRUE)
+			while (LNext(&(pg->adjList[visitV]), &nextV) == TRUE)
 			{
-				if(VisitVertex(pg, nextV) == TRUE)
+				if (VisitVertex(pg, nextV) == TRUE)
 				{
 					SPush(&stack, visitV);
 					visitV = nextV;
@@ -181,21 +180,21 @@ void DFShowGraphVertex(ALGraph * pg, int startV)
 				}
 			}
 		}
-		
-		if(visitFlag == FALSE)
+
+		if (visitFlag == FALSE)
 		{
-			if(SIsEmpty(&stack) == TRUE)
+			if (SIsEmpty(&stack) == TRUE)
 				break;
 			else
-				visitV = SPop(&stack);	
+				visitV = SPop(&stack);
 		}
 	}
 
 	memset(pg->visitInfo, 0, sizeof(int) * pg->numV);
 }
 
-// µÎ Á¤Á¡ÀÌ ¿¬°áµÇ¾î ÀÖ´Ù¸é TRUE, ±×·¸Áö ¾Ê´Ù¸é FALSE ¹ÝÈ¯
-int IsConnVertex(ALGraph * pg, int v1, int v2)
+// ë‘ ì •ì ì´ ì—°ê²°ë˜ì–´ ìžˆë‹¤ë©´ TRUE, ê·¸ë ‡ì§€ ì•Šë‹¤ë©´ FALSE ë°˜í™˜
+int IsConnVertex(ALGraph *pg, int v1, int v2)
 {
 	Stack stack;
 	int visitV = v1;
@@ -205,17 +204,17 @@ int IsConnVertex(ALGraph * pg, int v1, int v2)
 	VisitVertex(pg, visitV);
 	SPush(&stack, visitV);
 
-	while(LFirst(&(pg->adjList[visitV]), &nextV) == TRUE)
+	while (LFirst(&(pg->adjList[visitV]), &nextV) == TRUE)
 	{
 		int visitFlag = FALSE;
 
-		if(nextV == v2)
+		if (nextV == v2)
 		{
 			memset(pg->visitInfo, 0, sizeof(int) * pg->numV);
 			return TRUE;
 		}
 
-		if(VisitVertex(pg, nextV) == TRUE)
+		if (VisitVertex(pg, nextV) == TRUE)
 		{
 			SPush(&stack, visitV);
 			visitV = nextV;
@@ -223,16 +222,15 @@ int IsConnVertex(ALGraph * pg, int v1, int v2)
 		}
 		else
 		{
-			while(LNext(&(pg->adjList[visitV]), &nextV) == TRUE)
+			while (LNext(&(pg->adjList[visitV]), &nextV) == TRUE)
 			{
-				
-				if(nextV == v2)
+				if (nextV == v2)
 				{
 					memset(pg->visitInfo, 0, sizeof(int) * pg->numV);
 					return TRUE;
 				}
 
-				if(VisitVertex(pg, nextV) == TRUE)
+				if (VisitVertex(pg, nextV) == TRUE)
 				{
 					SPush(&stack, visitV);
 					visitV = nextV;
@@ -241,13 +239,13 @@ int IsConnVertex(ALGraph * pg, int v1, int v2)
 				}
 			}
 		}
-		
-		if(visitFlag == FALSE)
+
+		if (visitFlag == FALSE)
 		{
-			if(SIsEmpty(&stack) == TRUE)
+			if (SIsEmpty(&stack) == TRUE)
 				break;
 			else
-				visitV = SPop(&stack);	
+				visitV = SPop(&stack);
 		}
 	}
 
@@ -255,31 +253,29 @@ int IsConnVertex(ALGraph * pg, int v1, int v2)
 	return FALSE;
 }
 
-
-// MST °£¼±ÀÇ ¼ö + 1 == Á¤Á¡ÀÇ ¼ö
-// Å©·ç½ºÄ® ¾Ë°í¸®Áò ±â¹Ý ÃÖ¼Ò ºñ¿ë ½ÅÀå Æ®¸®ÀÇ ±¸¼º
-void ConKruskalMST(ALGraph * pg)
+// MST ê°„ì„ ì˜ ìˆ˜ + 1 == ì •ì ì˜ ìˆ˜
+// í¬ë£¨ìŠ¤ì¹¼ ì•Œê³ ë¦¬ì¦˜ ê¸°ë°˜ ìµœì†Œ ìŠ¤íŒ¨ë‹ íŠ¸ë¦¬ êµ¬ì„±
+void ConKruskalMST(ALGraph *pg)
 {
-	Edge recvEdge[20];    // º¹¿øÇÒ °£¼±ÀÇ Á¤º¸ ÀúÀå
+	Edge recvEdge[20]; // ì‚­ì œëœ ê°„ì„ ì„ ì €ìž¥
 	Edge edge;
 	int eidx = 0;
 	int i;
 
-	// MST¸¦ Çü¼ºÇÒ ¶§±îÁö ¾Æ·¡ÀÇ while¹®À» ¹Ýº¹
-	while(pg->numE+1 > pg->numV)
+	// MSTì˜ ê°„ì„  ìˆ˜ ì¡°ê±´ì„ ë§Œì¡±í•  ë•Œê¹Œì§€ whileë¬¸ì´ ë°˜ë³µ
+	while (pg->numE + 1 > pg->numV)
 	{
 		edge = PDequeue(&(pg->pqueue));
 		RemoveEdge(pg, edge.v1, edge.v2);
 
-		if(!IsConnVertex(pg, edge.v1, edge.v2))
+		if (!IsConnVertex(pg, edge.v1, edge.v2))
 		{
 			RecoverEdge(pg, edge.v1, edge.v2, edge.weight);
 			recvEdge[eidx++] = edge;
 		}
 	}
 
-	// ¿ì¼±¼øÀ§ Å¥¿¡¼­ »èÁ¦µÈ °£¼±ÀÇ Á¤º¸¸¦ È¸º¹
-	for(i=0; i<eidx; i++)
+	// ìš°ì„ ìˆœìœ„ íì— ì‚­ì œëœ ê°„ì„ ì„ ë³µì›
+	for (i = 0; i < eidx; i++)
 		PEnqueue(&(pg->pqueue), recvEdge[i]);
-
 }

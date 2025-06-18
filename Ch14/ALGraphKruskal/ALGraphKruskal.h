@@ -3,40 +3,51 @@
 
 #include "DLinkedList.h"
 #include "PriorityQueue.h"
-
 #include "ALEdge.h"
 
-// Á¤Á¡ÀÇ ÀÌ¸§µéÀ» »ó¼öÈ­
-enum {A, B, C, D, E, F, G, H, I, J};
+// ì •ì ì˜ ì´ë¦„ì„ ìƒìˆ˜í™”
+enum
+{
+	A,
+	B,
+	C,
+	D,
+	E,
+	F,
+	G,
+	H,
+	I,
+	J
+};
 
 typedef struct _ual
 {
 	int numV;
 	int numE;
-	List * adjList;
-	int * visitInfo;
-	PQueue pqueue;    // °£¼±ÀÇ °¡ÁßÄ¡ Á¤º¸ ÀúÀå
+	List *adjList;
+	int *visitInfo;
+	PQueue pqueue; // ê°„ì„ ì˜ ê°€ì¤‘ì¹˜ ì •ë³´ ì €ì¥
 } ALGraph;
 
-// ±×·¡ÇÁÀÇ ÃÊ±âÈ­
-void GraphInit(ALGraph * pg, int nv);
+// ê·¸ë˜í”„ì˜ ì´ˆê¸°í™”
+void GraphInit(ALGraph *pg, int nv);
 
-// ±×·¡ÇÁÀÇ ¸®¼Ò½º ÇØÁ¦
-void GraphDestroy(ALGraph * pg);
+// ê·¸ë˜í”„ì˜ ë¦¬ì†ŒìŠ¤ í•´ì œ
+void GraphDestroy(ALGraph *pg);
 
-// °£¼±ÀÇ Ãß°¡
-void AddEdge(ALGraph * pg, int fromV, int toV, int weight);
+// ê°„ì„ ì˜ ì¶”ê°€
+void AddEdge(ALGraph *pg, int fromV, int toV, int weight);
 
-// °£¼±ÀÇ Á¤º¸ Ãâ·Â
-void ShowGraphEdgeInfo(ALGraph * pg);
+// ê°„ì„ ì˜ ì •ë³´ ì¶œë ¥
+void ShowGraphEdgeInfo(ALGraph *pg);
 
-// Depth First Search: Á¤Á¡ÀÇ Á¤º¸ Ãâ·Â
-void DFShowGraphVertex(ALGraph * pg, int startV);
+// Depth First Search: ì •ì ì˜ ì •ë³´ ì¶œë ¥
+void DFShowGraphVertex(ALGraph *pg, int startV);
 
-// Å©·ç½ºÄ® ÃÖ¼Ò ºñ¿ë ½ÅÀå Æ®¸®ÀÇ ±¸¼º
-void ConKruskalMST(ALGraph * pg);
+// í¬ë£¨ìŠ¤ì¹¼ ìµœì†Œ ìŠ¤íŒ¨ë‹ íŠ¸ë¦¬ êµ¬ì„±
+void ConKruskalMST(ALGraph *pg);
 
-// °£¼±ÀÇ °¡ÁßÄ¡ Á¤º¸ Ãâ·Â
-void ShowGraphEdgeWeightInfo(ALGraph * pg);
+// ê°„ì„ ì˜ ê°€ì¤‘ì¹˜ ì •ë³´ ì¶œë ¥
+void ShowGraphEdgeWeightInfo(ALGraph *pg);
 
 #endif

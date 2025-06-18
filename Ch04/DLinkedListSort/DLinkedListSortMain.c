@@ -3,59 +3,62 @@
 
 int WhoIsPrecede(int d1, int d2)
 {
-	if(d1 < d2)
-		return 0;    // d1ÀÌ Á¤·Ä ¼ø¼­»ó ¾Õ¼±´Ù.
+	if (d1 < d2)
+		return 0; // d1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ¼ï¿½ï¿½ï¿½.
 	else
-		return 1;    // d2°¡ Á¤·Ä ¼ø¼­»ó ¾Õ¼­°Å³ª °°´Ù.
+		return 1; // d2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ¼ï¿½ï¿½Å³ï¿½ ï¿½ï¿½ï¿½ï¿½.
 }
 
 int main(void)
 {
-	// ListÀÇ »ý¼º ¹× ÃÊ±âÈ­  ////////////
+	// Listï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ê±ï¿½È­  ////////////
 	List list;
 	int data;
 	ListInit(&list);
 
 	SetSortRule(&list, WhoIsPrecede);
 
-	// 5°³ÀÇ µ¥ÀÌÅÍ ÀúÀå  ///////////////
-	LInsert(&list, 11);  LInsert(&list, 11);
-	LInsert(&list, 22);  LInsert(&list, 22);
+	// 5ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½  ///////////////
+	LInsert(&list, 11);
+	LInsert(&list, 11);
+	LInsert(&list, 22);
+	LInsert(&list, 22);
 	LInsert(&list, 33);
+	LInsert(&list, 18);
 
-	// ÀúÀåµÈ µ¥ÀÌÅÍÀÇ ÀüÃ¼ Ãâ·Â ////////////
-	printf("ÇöÀç µ¥ÀÌÅÍÀÇ ¼ö: %d \n", LCount(&list));
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ ////////////
+	printf("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½: %d \n", LCount(&list));
 
-	if(LFirst(&list, &data))
+	if (LFirst(&list, &data))
 	{
 		printf("%d ", data);
-		
-		while(LNext(&list, &data)) 
+
+		while (LNext(&list, &data))
 			printf("%d ", data);
 	}
 	printf("\n\n");
 
-	// ¼ýÀÚ 22À» °Ë»öÇÏ¿© ¸ðµÎ »èÁ¦ ////////////
-	if(LFirst(&list, &data))
+	// ï¿½ï¿½ï¿½ï¿½ 22ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ////////////
+	if (LFirst(&list, &data))
 	{
-		if(data == 22)
+		if (data == 22)
 			LRemove(&list);
-		
-		while(LNext(&list, &data))
+
+		while (LNext(&list, &data))
 		{
-			if(data == 22)
+			if (data == 22)
 				LRemove(&list);
 		}
 	}
 
-	// »èÁ¦ ÈÄ ÀúÀåµÈ µ¥ÀÌÅÍ ÀüÃ¼ Ãâ·Â ////////////
-	printf("ÇöÀç µ¥ÀÌÅÍÀÇ ¼ö: %d \n", LCount(&list));
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ ////////////
+	printf("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½: %d \n", LCount(&list));
 
-	if(LFirst(&list, &data))
+	if (LFirst(&list, &data))
 	{
 		printf("%d ", data);
-		
-		while(LNext(&list, &data))
+
+		while (LNext(&list, &data))
 			printf("%d ", data);
 	}
 	printf("\n\n");

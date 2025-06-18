@@ -7,104 +7,105 @@
 
 int WhoIsPrecede(int data1, int data2);
 
-// ±×·¡ÇÁÀÇ ÃÊ±âÈ­
-void GraphInit(ALGraph * pg, int nv)
+// ê·¸ë˜í”„ ì´ˆê¸°í™”
+void GraphInit(ALGraph *pg, int nv)
 {
-	int i;	
+	int i;
 
-	pg->adjList = (List*)malloc(sizeof(List)*nv);
+	// ì •ì  ê°œìˆ˜ë§Œí¼ ì¸ì ‘ ë¦¬ìŠ¤íŠ¸ ë°°ì—´ ìƒì„±
+	pg->adjList = (List *)malloc(sizeof(List) * nv);
 	pg->numV = nv;
-	pg->numE = 0;     // ÃÊ±âÀÇ °£¼± ¼ö´Â 0°³
+	pg->numE = 0; // ì´ˆê¸° ê°„ì„  ìˆ˜ëŠ” 0
 
-	for(i=0; i<nv; i++)
+	for (i = 0; i < nv; i++)
 	{
-		ListInit(&(pg->adjList[i]));
-		SetSortRule(&(pg->adjList[i]), WhoIsPrecede); 
+		ListInit(&(pg->adjList[i]));				  // ê° ì •ì ì— ëŒ€í•œ ë¦¬ìŠ¤íŠ¸ ì´ˆê¸°í™”
+		SetSortRule(&(pg->adjList[i]), WhoIsPrecede); // ì˜¤ë¦„ì°¨ìˆœ ì •ë ¬
 	}
 
-	// Å½»ö Á¤º¸ µî·ÏÀ» À§ÇÑ °ø°£ÀÇ ÇÒ´ç ¹× ÃÊ±âÈ­
-	pg->visitInfo= (int *)malloc(sizeof(int) * pg->numV);
+	// ë°©ë¬¸ ì •ë³´ ë°°ì—´ ìƒì„± ë° ì´ˆê¸°í™” (ëª¨ë“  ì •ì  ë¯¸ë°©ë¬¸)
+	pg->visitInfo = (int *)malloc(sizeof(int) * pg->numV);
 	memset(pg->visitInfo, 0, sizeof(int) * pg->numV);
 }
 
-// ±×·¡ÇÁÀÇ ¸®¼Ò½º ÇØÁ¦
-void GraphDestroy(ALGraph * pg)
+// ê·¸ë˜í”„ ë©”ëª¨ë¦¬ í•´ì œ
+void GraphDestroy(ALGraph *pg)
 {
-	if(pg->adjList != NULL)
+	if (pg->adjList != NULL)
 		free(pg->adjList);
 
-	if(pg->visitInfo != NULL)
+	if (pg->visitInfo != NULL)
 		free(pg->visitInfo);
 }
 
-// °£¼±ÀÇ Ãß°¡
-void AddEdge(ALGraph * pg, int fromV, int toV)
+// ê°„ì„  ì¶”ê°€ (ì–‘ë°©í–¥)
+void AddEdge(ALGraph *pg, int fromV, int toV)
 {
-	LInsert(&(pg->adjList[fromV]), toV);
-	LInsert(&(pg->adjList[toV]), fromV);
+	LInsert(&(pg->adjList[fromV]), toV); // from â†’ to
+	LInsert(&(pg->adjList[toV]), fromV); // to â†’ from
 	pg->numE += 1;
 }
 
-// À¯Æ¿¸®Æ¼ ÇÔ¼ö: °£¼±ÀÇ Á¤º¸ Ãâ·Â
-void ShowGraphEdgeInfo(ALGraph * pg)
+// ê·¸ë˜í”„ ê°„ì„  ì •ë³´ ì¶œë ¥
+void ShowGraphEdgeInfo(ALGraph *pg)
 {
 	int i;
 	int vx;
 
-	for(i=0; i<pg->numV; i++)
+	for (i = 0; i < pg->numV; i++)
 	{
-		printf("%c¿Í ¿¬°áµÈ Á¤Á¡: ", i + 65);
-		
-		if(LFirst(&(pg->adjList[i]), &vx))
+		printf("%cì™€ ì—°ê²°ëœ ì •ì : ", i + 65); // ì •ì  ë²ˆí˜¸ë¥¼ ë¬¸ìë¡œ ì¶œë ¥ (A, B, C...)
+
+		if (LFirst(&(pg->adjList[i]), &vx))
 		{
 			printf("%c ", vx + 65);
-			
-			while(LNext(&(pg->adjList[i]), &vx))
+
+			while (LNext(&(pg->adjList[i]), &vx))
 				printf("%c ", vx + 65);
 		}
 		printf("\n");
 	}
 }
 
+// ì˜¤ë¦„ì°¨ìˆœ ì •ë ¬ í•¨ìˆ˜: ì‘ì€ ìˆ˜ê°€ ìš°ì„ 
 int WhoIsPrecede(int data1, int data2)
 {
-	if(data1 < data2)
-		return 0;
+	if (data1 < data2)
+		return 0; // data1ì´ ì•
 	else
-		return 1;
+		return 1; // data2ê°€ ì•
 }
 
-
-int VisitVertex(ALGraph * pg, int visitV)
+// ì •ì  ë°©ë¬¸ ì²˜ë¦¬ ë° ì¶œë ¥
+int VisitVertex(ALGraph *pg, int visitV)
 {
-	if(pg->visitInfo[visitV] == 0)
+	if (pg->visitInfo[visitV] == 0)
 	{
 		pg->visitInfo[visitV] = 1;
-		printf("%c ", visitV + 65);     // ¹æ¹® Á¤Á¡ Ãâ·Â
+		printf("%c ", visitV + 65); // ë°©ë¬¸ ì •ì  ì¶œë ¥ (A, B, C...)
 		return TRUE;
 	}
-	
+
 	return FALSE;
 }
 
-// Depth First Search: Á¤Á¡ÀÇ Á¤º¸ Ãâ·Â
-void DFShowGraphVertex(ALGraph * pg, int startV)
+// ê¹Šì´ ìš°ì„  íƒìƒ‰ (DFS)
+void DFShowGraphVertex(ALGraph *pg, int startV)
 {
 	Stack stack;
 	int visitV = startV;
 	int nextV;
 
-	// DFS¸¦ À§ÇÑ ½ºÅÃÀÇ ÃÊ±âÈ­
 	StackInit(&stack);
 
-	VisitVertex(pg, visitV);    // ½ÃÀÛ Á¤Á¡ ¹æ¹®
-	SPush(&stack, visitV);
+	VisitVertex(pg, visitV); // ì‹œì‘ ì •ì  ë°©ë¬¸
+	SPush(&stack, visitV);	 // ìŠ¤íƒì— push
 
-	while(LFirst(&(pg->adjList[visitV]), &nextV) == TRUE)
+	while (LFirst(&(pg->adjList[visitV]), &nextV) == TRUE)
 	{
 		int visitFlag = FALSE;
 
-		if(VisitVertex(pg, nextV) == TRUE)
+		if (VisitVertex(pg, nextV) == TRUE)
 		{
 			SPush(&stack, visitV);
 			visitV = nextV;
@@ -112,9 +113,9 @@ void DFShowGraphVertex(ALGraph * pg, int startV)
 		}
 		else
 		{
-			while(LNext(&(pg->adjList[visitV]), &nextV) == TRUE)
+			while (LNext(&(pg->adjList[visitV]), &nextV) == TRUE)
 			{
-				if(VisitVertex(pg, nextV) == TRUE)
+				if (VisitVertex(pg, nextV) == TRUE)
 				{
 					SPush(&stack, visitV);
 					visitV = nextV;
@@ -123,16 +124,16 @@ void DFShowGraphVertex(ALGraph * pg, int startV)
 				}
 			}
 		}
-		
-		if(visitFlag == FALSE)
+
+		if (visitFlag == FALSE)
 		{
-			if(SIsEmpty(&stack) == TRUE)    // ½ºÅÃÀÌ ºñ¸é DFSÁ¾·á
+			if (SIsEmpty(&stack) == TRUE) // ìŠ¤íƒì´ ë¹„ë©´ íƒìƒ‰ ì¢…ë£Œ
 				break;
 			else
-				visitV = SPop(&stack);	
+				visitV = SPop(&stack); // ì´ì „ ì •ì ìœ¼ë¡œ ë˜ëŒì•„ê°
 		}
 	}
 
-	// Å½»ö Á¤º¸ ÃÊ±âÈ­
+	// ë°©ë¬¸ ì •ë³´ ì´ˆê¸°í™”
 	memset(pg->visitInfo, 0, sizeof(int) * pg->numV);
 }

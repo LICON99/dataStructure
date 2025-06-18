@@ -1,0 +1,68 @@
+#include <stdio.h>
+
+int main()
+{
+	int n;
+	char c;
+	int x[1000], y[1000], cnt[1000] = {0};
+	int xIdx = 0, yIdx = 0;
+
+	while (1)
+	{
+		scanf("%c", &c);
+		if (c == '!')
+			break;
+		if (xIdx == 0)
+			y[yIdx++] = c;
+		int flag = 1;
+		for (int i = 0; i < yIdx; i++)
+		{
+			if (c == y[i])
+				flag = 0;
+		}
+		if (flag)
+			y[yIdx++] = c;
+		x[xIdx++] = c;
+		cnt[c]++;
+	}
+	for (int i = 0; i < yIdx; i++)
+		printf("%c", y[i]);
+	printf("\n");
+	// completed
+	int m;
+	int z[1000];
+	int len = 0;
+	int flag = 0;
+	scanf("%d", &m);
+	getchar();
+	for (int i = 0; i < m; i++)
+		scanf("%c", &z[i]);
+	// for (int i = 0; i < m; i++)
+	// 	printf("%c", z[i]);
+	for (int i = 0; i < yIdx - m + 1; i++)
+	{
+		len = 0;
+		for (int j = 0; j < m; j++)
+		{
+			// printf("y : %c, z : %cm : %d\n", y[i + j], z[j], j);
+			if (y[i + j] == z[j])
+			{
+				len++;
+				// printf("m : %d,i : %d, len : %d\n", m, i, len);
+			}
+			else
+			{
+				len = 0;
+				break;
+			}
+		}
+		if (len == m)
+		{
+			printf("%d", i);
+			flag = 1;
+		}
+	}
+	if(!flag)
+	printf("none");
+	return 0;
+}

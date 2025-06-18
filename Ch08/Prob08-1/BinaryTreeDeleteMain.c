@@ -5,12 +5,12 @@ void ShowIntData(int data);
 
 int main(void)
 {
-	BTreeNode * bt1 = MakeBTreeNode();
-	BTreeNode * bt2 = MakeBTreeNode();
-	BTreeNode * bt3 = MakeBTreeNode();
-	BTreeNode * bt4 = MakeBTreeNode();
-	BTreeNode * bt5 = MakeBTreeNode();
-	BTreeNode * bt6 = MakeBTreeNode();
+	BTreeNode *bt1 = MakeBTreeNode();
+	BTreeNode *bt2 = MakeBTreeNode();
+	BTreeNode *bt3 = MakeBTreeNode();
+	BTreeNode *bt4 = MakeBTreeNode();
+	BTreeNode *bt5 = MakeBTreeNode();
+	BTreeNode *bt6 = MakeBTreeNode();
 
 	SetData(bt1, 1);
 	SetData(bt2, 2);
@@ -33,6 +33,8 @@ int main(void)
 	printf("\n");
 
 	DeleteTree(bt1);
+	PreorderTraverse(bt1, ShowIntData);
+
 	return 0;
 }
 

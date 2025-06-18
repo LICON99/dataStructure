@@ -1,21 +1,28 @@
 #include <stdio.h>
 #include "ExpressionTree.h"
 
-int main(void) 
+int main(void)
 {
 	char exp[] = "12+7*";
-	BTreeNode * eTree = MakeExpTree(exp);
+	BTreeNode *eTree = MakeExpTree(exp);
 
-	printf("ÀüÀ§ Ç¥±â¹ıÀÇ ¼ö½Ä: ");
-	ShowPrefixTypeExp(eTree); printf("\n");
+	// ì „ìœ„ í‘œê¸°ì‹ ì¶œë ¥
+	printf("ì „ìœ„ í‘œê¸°ì‹ ì¶œë ¥: ");
+	ShowPrefixTypeExp(eTree);
+	printf("\n");
 
-	printf("ÁßÀ§ Ç¥±â¹ıÀÇ ¼ö½Ä: ");
-	ShowInfixTypeExp(eTree); printf("\n");
+	// ì¤‘ìœ„ í‘œê¸°ì‹ ì¶œë ¥
+	printf("ì¤‘ìœ„ í‘œê¸°ì‹ ì¶œë ¥: ");
+	ShowInfixTypeExp(eTree);
+	printf("\n");
 
-	printf("ÈÄÀ§ Ç¥±â¹ıÀÇ ¼ö½Ä: ");
-	ShowPostfixTypeExp(eTree); printf("\n");
+	// í›„ìœ„ í‘œê¸°ì‹ ì¶œë ¥
+	printf("í›„ìœ„ í‘œê¸°ì‹ ì¶œë ¥: ");
+	ShowPostfixTypeExp(eTree);
+	printf("\n");
 
-	printf("¿¬»êÀÇ °á°ú: %d \n", EvaluateExpTree(eTree));
+	// ìˆ˜ì‹ íŠ¸ë¦¬ ê³„ì‚° ê²°ê³¼ ì¶œë ¥
+	printf("ê³„ì‚° ê²°ê³¼: %d \n", EvaluateExpTree(eTree));
 
 	return 0;
 }

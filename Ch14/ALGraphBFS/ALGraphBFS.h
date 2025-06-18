@@ -3,30 +3,43 @@
 
 #include "DLinkedList.h"
 
-// Á¤Á¡ÀÇ ÀÌ¸§µéÀ» »ó¼öÈ­
-enum {A, B, C, D, E, F, G, H, I, J};
+// ì •ì ì˜ ì´ë¦„ì„ ìƒìˆ˜í™”
+enum
+{
+	A,
+	B,
+	C,
+	D,
+	E,
+	F,
+	G,
+	H,
+	I,
+	J
+};
 
+// ì¸ì ‘ ë¦¬ìŠ¤íŠ¸ ê¸°ë°˜ ê·¸ë˜í”„ êµ¬ì¡°ì²´ ì •ì˜
 typedef struct _ual
 {
-	int numV;   // Á¤Á¡ÀÇ ¼ö
-	int numE;   // °£¼±ÀÇ ¼ö
-	List * adjList;   // °£¼±ÀÇ Á¤º¸
-	int * visitInfo;
+	int numV;		// ì •ì ì˜ ìˆ˜
+	int numE;		// ê°„ì„ ì˜ ìˆ˜
+	List *adjList;	// ì¸ì ‘ ë¦¬ìŠ¤íŠ¸ ë°°ì—´
+	int *visitInfo; // ì •ì  ë°©ë¬¸ ì—¬ë¶€ ì €ì¥ ë°°ì—´
 } ALGraph;
 
-// ±×·¡ÇÁÀÇ ÃÊ±âÈ­
-void GraphInit(ALGraph * pg, int nv);
+// ê·¸ë˜í”„ ì´ˆê¸°í™”
+void GraphInit(ALGraph *pg, int nv);
 
-// ±×·¡ÇÁÀÇ ¸®¼Ò½º ÇØÁ¦
-void GraphDestroy(ALGraph * pg);
+// ê·¸ë˜í”„ ë©”ëª¨ë¦¬ í•´ì œ
+void GraphDestroy(ALGraph *pg);
 
-// °£¼±ÀÇ Ãß°¡
-void AddEdge(ALGraph * pg, int fromV, int toV);
+// ê°„ì„  ì¶”ê°€
+void AddEdge(ALGraph *pg, int fromV, int toV);
 
-// À¯Æ¿¸®Æ¼ ÇÔ¼ö: °£¼±ÀÇ Á¤º¸ Ãâ·Â
-void ShowGraphEdgeInfo(ALGraph * pg);
+// ë””ë²„ê¹…ìš© í•¨ìˆ˜: ê°„ì„  ì •ë³´ ì¶œë ¥
+void ShowGraphEdgeInfo(ALGraph *pg);
 
-// Breadth First Search: Á¤Á¡ÀÇ Á¤º¸ Ãâ·Â
-void BFShowGraphVertex(ALGraph * pg, int startV);
+// BFS: ë„ˆë¹„ ìš°ì„  íƒìƒ‰
+void BFShowGraphVertex(ALGraph *pg, int startV);
 
 #endif

@@ -16,3 +16,4 @@ int main(void)
 	printf("%s \n", exp3);
 	return 0;
 }
+//123*+, 12+3*, 12-3+52-*

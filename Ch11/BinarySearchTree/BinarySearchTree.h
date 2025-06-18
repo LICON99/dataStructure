@@ -3,18 +3,18 @@
 
 #include "BinaryTree2.h"
 
-typedef BTData	BSTData;
+typedef BTData BSTData; // ì´ì§„ íƒìƒ‰ íŠ¸ë¦¬ì—ì„œ ì‚¬ìš©í•˜ëŠ” ë°ì´í„° íƒ€ì… ì •ì˜
 
-// BSTÀÇ »ı¼º ¹× ÃÊ±âÈ­
-void BSTMakeAndInit(BTreeNode ** pRoot);
+// ì´ì§„ íƒìƒ‰ íŠ¸ë¦¬ ì´ˆê¸°í™” í•¨ìˆ˜
+void BSTMakeAndInit(BTreeNode **pRoot);
 
-// ³ëµå¿¡ ÀúÀåµÈ µ¥ÀÌÅÍ ¹İÈ¯
-BSTData BSTGetNodeData(BTreeNode * bst);
+// ë…¸ë“œì— ì €ì¥ëœ ë°ì´í„° ë°˜í™˜
+BSTData BSTGetNodeData(BTreeNode *bst);
 
-// BST¸¦ ´ë»óÀ¸·Î µ¥ÀÌÅÍ ÀúÀå(³ëµåÀÇ »ı¼º°úÁ¤ Æ÷ÇÔ)
-void BSTInsert(BTreeNode ** pRoot, BSTData data);
+// ì´ì§„ íƒìƒ‰ íŠ¸ë¦¬ì— ë°ì´í„° ì‚½ì… (ì¤‘ë³µ ë°ì´í„°ëŠ” ì‚½ì…í•˜ì§€ ì•ŠìŒ)
+void BSTInsert(BTreeNode **pRoot, BSTData data);
 
-// BST¸¦ ´ë»óÀ¸·Î µ¥ÀÌÅÍ Å½»ö
-BTreeNode * BSTSearch(BTreeNode * bst, BSTData target);
+// ì´ì§„ íƒìƒ‰ íŠ¸ë¦¬ì—ì„œ ë°ì´í„° ê²€ìƒ‰
+BTreeNode *BSTSearch(BTreeNode *bst, BSTData target);
 
 #endif

@@ -1,62 +1,59 @@
 #include <stdio.h>
 
+// ë³´ê°„ íƒìƒ‰ í•¨ìˆ˜ ì •ì˜
 int ISearch(int ar[], int first, int last, int target)
 {
 	int mid;
 
-//	if(first > last)
-//		return -1;    // -1ÀÇ ¹İÈ¯Àº Å½»öÀÇ ½ÇÆĞ¸¦ ÀÇ¹Ì
-
-	if(ar[first]>target || ar[last]<target)
+	// ë°°ì—´ ë²”ìœ„ë¥¼ ë²—ì–´ë‚œ ê²½ìš° íƒìƒ‰ ì‹¤íŒ¨
+	if (ar[first] > target || ar[last] < target)
 		return -1;
- 
-	// ÀÌÁø Å½»ö°úÀÇ Â÷ÀÌÁ¡À» ¹İ¿µÇÑ ¹®Àå
-	mid = ((double)(target-ar[first]) / (ar[last]-ar[first]) *
-			(last-first)) + first;
 
-	if(ar[mid] == target)
-		return mid;    // Å½»öµÈ Å¸°ÙÀÇ ÀÎµ¦½º °ª ¹İÈ¯
-	else if(target < ar[mid])
-		return ISearch(ar, first, mid-1, target);
+	// ë³´ê°„ íƒìƒ‰ ê³µì‹ìœ¼ë¡œ ì˜ˆìƒ ìœ„ì¹˜ ê³„ì‚°
+	mid = ((double)(target - ar[first]) / (ar[last] - ar[first]) *
+		   (last - first)) +
+		  first;
+
+	if (ar[mid] == target)
+		return mid; // íƒìƒ‰ ì„±ê³µ ì‹œ ì¸ë±ìŠ¤ ë°˜í™˜
+	else if (target < ar[mid])
+		return ISearch(ar, first, mid - 1, target); // ì™¼ìª½ íƒìƒ‰
 	else
-		return ISearch(ar, mid+1, last, target);
+		return ISearch(ar, mid + 1, last, target); // ì˜¤ë¥¸ìª½ íƒìƒ‰
 }
-
 
 int main(void)
 {
 	int arr[] = {1, 3, 5, 7, 9};
 	int idx;
-	
-	idx = ISearch(arr, 0, sizeof(arr)/sizeof(int)-1, 7);
-	if(idx == -1)
-		printf("Å½»ö ½ÇÆĞ \n");
-	else
-		printf("Å¸°Ù ÀúÀå ÀÎµ¦½º: %d \n", idx);
 
-	idx = ISearch(arr, 0, sizeof(arr)/sizeof(int)-1, 2);
-	if(idx == -1)
-		printf("Å½»ö ½ÇÆĞ \n");
+	idx = ISearch(arr, 0, sizeof(arr) / sizeof(int) - 1, 7);
+	if (idx == -1)
+		printf("íƒìƒ‰ ì‹¤íŒ¨\n");
 	else
-		printf("Å¸°Ù ÀúÀå ÀÎµ¦½º: %d \n", idx);
+		printf("ì°¾ì€ ê°’ì˜ ì¸ë±ìŠ¤: %d\n", idx);
+
+	idx = ISearch(arr, 0, sizeof(arr) / sizeof(int) - 1, 2);
+	if (idx == -1)
+		printf("íƒìƒ‰ ì‹¤íŒ¨\n");
+	else
+		printf("ì°¾ì€ ê°’ì˜ ì¸ë±ìŠ¤: %d\n", idx);
 
 	return 0;
 }
-
 
 /*
 int main(void)
 {
 	int arr[] = {1, 3, 5, 7, 9};
 	int idx;
-	
-	idx = ISearch(arr, 0, sizeof(arr)/sizeof(int)-1, 2);
-	if(idx == -1)
-		printf("Å½»ö ½ÇÆĞ \n");
+
+	idx = ISearch(arr, 0, sizeof(arr) / sizeof(int) - 1, 2);
+	if (idx == -1)
+		printf("íƒìƒ‰ ì‹¤íŒ¨\n");
 	else
-		printf("Å¸°Ù ÀúÀå ÀÎµ¦½º: %d \n", idx);
+		printf("ì°¾ì€ ê°’ì˜ ì¸ë±ìŠ¤: %d\n", idx);
 
 	return 0;
 }
-
 */

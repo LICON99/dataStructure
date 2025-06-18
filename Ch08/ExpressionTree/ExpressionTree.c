@@ -5,25 +5,25 @@
 #include "ListBaseStack.h"
 #include "BinaryTree2.h"
 
-BTreeNode * MakeExpTree(char exp[])
+BTreeNode *MakeExpTree(char exp[])
 {
 	Stack stack;
-	BTreeNode * pnode;
+	BTreeNode *pnode;
 
 	int expLen = strlen(exp);
 	int i;
 
 	StackInit(&stack);
 
-	for(i=0; i<expLen; i++)
+	for (i = 0; i < expLen; i++)
 	{
 		pnode = MakeBTreeNode();
 
-		if(isdigit(exp[i]))		// ÇÇ¿¬»êÀÚ¶ó¸é...
+		if (isdigit(exp[i])) // ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½...
 		{
-			SetData(pnode, exp[i]-'0');
+			SetData(pnode, exp[i] - '0');
 		}
-		else					// ¿¬»êÀÚ¶ó¸é...
+		else // ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½...
 		{
 			MakeRightSubTree(pnode, SPop(&stack));
 			MakeLeftSubTree(pnode, SPop(&stack));
@@ -36,26 +36,26 @@ BTreeNode * MakeExpTree(char exp[])
 	return SPop(&stack);
 }
 
-int EvaluateExpTree(BTreeNode * bt)
+int EvaluateExpTree(BTreeNode *bt)
 {
 	int op1, op2;
 
-	if(GetLeftSubTree(bt)==NULL && GetRightSubTree(bt)==NULL)
+	if (GetLeftSubTree(bt) == NULL && GetRightSubTree(bt) == NULL)
 		return GetData(bt);
 
 	op1 = EvaluateExpTree(GetLeftSubTree(bt));
 	op2 = EvaluateExpTree(GetRightSubTree(bt));
 
-	switch(GetData(bt))
+	switch (GetData(bt))
 	{
 	case '+':
-		return op1+op2;
+		return op1 + op2;
 	case '-':
-		return op1-op2;
+		return op1 - op2;
 	case '*':
-		return op1*op2;
+		return op1 * op2;
 	case '/':
-		return op1/op2;
+		return op1 / op2;
 	}
 
 	return 0;
@@ -63,23 +63,23 @@ int EvaluateExpTree(BTreeNode * bt)
 
 void ShowNodeData(int data)
 {
-	if(0<=data && data<=9)
+	if (0 <= data && data <= 9)
 		printf("%d ", data);
 	else
 		printf("%c ", data);
 }
 
-void ShowPrefixTypeExp(BTreeNode * bt)
-{
-	PreorderTraverse(bt, ShowNodeData);
-}
-
-void ShowInfixTypeExp(BTreeNode * bt)
+void ShowPrefixTypeExp(BTreeNode *bt)
 {
 	InorderTraverse(bt, ShowNodeData);
-} 
+}
 
-void ShowPostfixTypeExp(BTreeNode * bt)
+void ShowInfixTypeExp(BTreeNode *bt)
+{
+	InorderTraverse(bt, ShowNodeData);
+}
+
+void ShowPostfixTypeExp(BTreeNode *bt)
 {
 	PostorderTraverse(bt, ShowNodeData);
 }

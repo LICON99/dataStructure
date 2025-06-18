@@ -2,70 +2,76 @@
 #include "BinaryTree2.h"
 #include "BinarySearchTree.h"
 
-void BSTMakeAndInit(BTreeNode ** pRoot)
+// ì´ì§„ íƒìƒ‰ íŠ¸ë¦¬ ì´ˆê¸°í™” í•¨ìˆ˜
+void BSTMakeAndInit(BTreeNode **pRoot)
 {
-	*pRoot = NULL;
+	*pRoot = NULL; // íŠ¸ë¦¬ì˜ ë£¨íŠ¸ë¥¼ NULLë¡œ ì´ˆê¸°í™”
 }
 
-BSTData BSTGetNodeData(BTreeNode * bst)
+// ë…¸ë“œì—ì„œ ë°ì´í„° ê°€ì ¸ì˜¤ê¸°
+BSTData BSTGetNodeData(BTreeNode *bst)
 {
-	return GetData(bst);
+	return GetData(bst); // BinaryTree2.hì— ì •ì˜ëœ í•¨ìˆ˜
 }
 
-void BSTInsert(BTreeNode ** pRoot, BSTData data)
+// ì´ì§„ íƒìƒ‰ íŠ¸ë¦¬ì— ë…¸ë“œ ì‚½ìž…
+void BSTInsert(BTreeNode **pRoot, BSTData data)
 {
-	BTreeNode * pNode = NULL;    // parent node
-	BTreeNode * cNode = *pRoot;    // current node
-	BTreeNode * nNode = NULL;    // new node
+	BTreeNode *pNode = NULL;   // ë¶€ëª¨ ë…¸ë“œ (Parent)
+	BTreeNode *cNode = *pRoot; // í˜„ìž¬ ë…¸ë“œ (Current)
+	BTreeNode *nNode = NULL;   // ìƒˆë¡œ ì‚½ìž…í•  ë…¸ë“œ (New)
 
-	// »õ·Î¿î ³ëµå°¡ Ãß°¡µÉ À§Ä¡¸¦ Ã£´Â´Ù.
-	while(cNode != NULL)
+	// ì‚½ìž… ìœ„ì¹˜ë¥¼ ì°¾ê¸° ìœ„í•œ ë°˜ë³µ
+	while (cNode != NULL)
 	{
-		if(data == GetData(cNode))
-			return;    // Å°ÀÇ Áßº¹À» Çã¿ëÇÏÁö ¾ÊÀ½
+		if (data == GetData(cNode))
+			return; // ì¤‘ë³µëœ ë°ì´í„°ëŠ” ì‚½ìž…í•˜ì§€ ì•ŠìŒ
 
 		pNode = cNode;
 
-		if(GetData(cNode) > data)
-			cNode = GetLeftSubTree(cNode);
+		if (data < GetData(cNode))
+			cNode = GetLeftSubTree(cNode); // ì™¼ìª½ìœ¼ë¡œ ì´ë™
 		else
-			cNode = GetRightSubTree(cNode);
+			cNode = GetRightSubTree(cNode); // ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì´ë™
 	}
-	
-	// pNodeÀÇ ¼­ºê ³ëµå¿¡ Ãß°¡ÇÒ »õ ³ëµåÀÇ »ý¼º
-	nNode = MakeBTreeNode();    // »õ ³ëµåÀÇ »ý¼º
-	SetData(nNode, data);    // »õ ³ëµå¿¡ µ¥ÀÌÅÍ ÀúÀå
 
-	// pNodeÀÇ ¼­ºê ³ëµå¿¡ »õ ³ëµå¸¦ Ãß°¡
-	if(pNode != NULL)    // »õ ³ëµå°¡ ·çÆ® ³ëµå°¡ ¾Æ´Ï¶ó¸é,
+	// ìƒˆ ë…¸ë“œ ìƒì„± ë° ë°ì´í„° ì„¤ì •
+	nNode = MakeBTreeNode();
+	SetData(nNode, data);
+
+	// ë£¨íŠ¸ê°€ ì•„ë‹Œ ê²½ìš°: ë¶€ëª¨ ë…¸ë“œì˜ ì™¼ìª½ ë˜ëŠ” ì˜¤ë¥¸ìª½ì— ì—°ê²°
+	if (pNode != NULL)
 	{
-		if(data < GetData(pNode))
+		if (data < GetData(pNode))
 			MakeLeftSubTree(pNode, nNode);
 		else
 			MakeRightSubTree(pNode, nNode);
 	}
-	else    // »õ ³ëµå°¡ ·çÆ® ³ëµå¶ó¸é,
+	else
 	{
+		// ë£¨íŠ¸ê°€ NULLì´ë©´ ìƒˆ ë…¸ë“œê°€ ë£¨íŠ¸ê°€ ë¨
 		*pRoot = nNode;
 	}
 }
 
-BTreeNode * BSTSearch(BTreeNode * bst, BSTData target)
+// ì´ì§„ íƒìƒ‰ íŠ¸ë¦¬ì—ì„œ ë°ì´í„° ê²€ìƒ‰
+BTreeNode *BSTSearch(BTreeNode *bst, BSTData target)
 {
-	BTreeNode * cNode = bst;    // current node
-	BSTData cd;    // current data
+	BTreeNode *cNode = bst; // í˜„ìž¬ ë…¸ë“œ
+	BSTData cd;				// í˜„ìž¬ ë…¸ë“œì˜ ë°ì´í„°
 
-	while(cNode != NULL)
+	// íƒìƒ‰ ë°˜ë³µ
+	while (cNode != NULL)
 	{
 		cd = GetData(cNode);
 
-		if(target == cd)
-			return cNode;
-		else if(target < cd)
-			cNode = GetLeftSubTree(cNode);
+		if (target == cd)
+			return cNode; // ë°ì´í„°ë¥¼ ì°¾ì€ ê²½ìš°
+		else if (target < cd)
+			cNode = GetLeftSubTree(cNode); // ì™¼ìª½ ì„œë¸ŒíŠ¸ë¦¬ë¡œ ì´ë™
 		else
-			cNode = GetRightSubTree(cNode);
+			cNode = GetRightSubTree(cNode); // ì˜¤ë¥¸ìª½ ì„œë¸ŒíŠ¸ë¦¬ë¡œ ì´ë™
 	}
 
-	return NULL;
+	return NULL; // ì°¾ì§€ ëª»í•œ ê²½ìš°
 }
